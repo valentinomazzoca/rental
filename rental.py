@@ -321,7 +321,7 @@ def render_tabla(df: pd.DataFrame):
     if df.empty:
         st.info("No hay ítems que coincidan con los filtros.")
         return
-    st.dataframe(df.style.applymap(style_estado, subset=["Estado"]),
+  st.dataframe(df.style.map(style_estado, subset=["Estado"]))
                  use_container_width=True, hide_index=True)
  
  
