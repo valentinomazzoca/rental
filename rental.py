@@ -132,8 +132,8 @@ class SupabaseREST:
  
 @st.cache_resource
 def get_db() -> SupabaseREST:
-    url = st.secrets["SUPABASE_URL"]
-    key = st.secrets["SUPABASE_KEY"]
+    url = st.secrets["https://wiqekdbncnrkenqiimqa.supabase.co"]
+    key = st.secrets["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndpcWVrZGJuY25ya2VucWlpbXFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4NzQzODEsImV4cCI6MjA5MDQ1MDM4MX0.RVr_8vKQZpfBASgUam5OJJXt6tL4X-zHXj5BwoAQWQ4"]
     return SupabaseREST(url, key)
  
  
