@@ -361,7 +361,23 @@ def page_stock():
     )
     st.markdown(f'<div class="section-header">🗂️ Inventario ({len(inv)} ítems)</div>', unsafe_allow_html=True)
     render_tabla(inv)
- 
+    if not mant.empty:
+        st.divider()
+        st.subheader("🛠️ Finalizar Mantenimiento")
+        
+        equipo_a_liberar = st.selectbox(
+            "Seleccioná el equipo que ya está listo:",
+            options=mant.to_dict('records'),
+            format_func=item_label,
+            key="liberar_mant"
+        )
+
+        if st.button("✅ Marcar como Disponible"):
+            db = get_db()
+            db.update("inventario", {"Estado": "Disponible"}, equipo_a_liberar["ID"])
+            st.success(f"Equipo {equipo_a_liberar['ID']} ahora está Disponible.")
+            st.rerun()
+    
     if not inv.empty:
         st.markdown('<div class="section-header">📊 Resumen por Categoría</div>', unsafe_allow_html=True)
         st.dataframe(inv.groupby(["Categoria", "Estado"]).size().unstack(fill_value=0).reset_index(),
