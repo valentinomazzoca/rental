@@ -361,13 +361,13 @@ def page_stock():
     )
     st.markdown(f'<div class="section-header">🗂️ Inventario ({len(inv)} ítems)</div>', unsafe_allow_html=True)
     render_tabla(inv)
-    if not mant.empty:
+    if not mant:
         st.divider()
         st.subheader("🛠️ Finalizar Mantenimiento")
         
         equipo_a_liberar = st.selectbox(
             "Seleccioná el equipo que ya está listo:",
-            options=mant.to_dict('records'),
+            options=mant,
             format_func=item_label,
             key="liberar_mant"
         )
