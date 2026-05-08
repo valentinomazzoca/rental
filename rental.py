@@ -385,8 +385,16 @@ def render_tabla(df: pd.DataFrame):
     if df.empty:
         st.info("No hay ítems que coincidan con los filtros.")
         return
-    styled = df.style.applymap(style_estado, subset=["estado"])
-    st.dataframe(styled, use_container_width=True, hide_index=True)
+
+    # Buscamos si existe la columna ignorando mayúsculas/minúsculas
+    col_estado = next((c for c in df.columns if c.lower() == "estado"), None)
+
+    if col_estado:
+        styled = df.style.applymap(style_estado, subset=[col_estado])
+        st.dataframe(styled, use_container_width=True, hide_index=True)
+    else:
+        # Si no existe la columna, mostramos la tabla normal sin colores
+        st.dataframe(df, use_container_width=True, hide_index=True)
 
 
 def item_label(row) -> str:
