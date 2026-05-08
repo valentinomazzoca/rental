@@ -386,11 +386,12 @@ def render_tabla(df: pd.DataFrame):
         st.info("No hay ítems que coincidan con los filtros.")
         return
     
-    # Determinamos cuál nombre de columna existe para no dar error
+    # Busca la columna sin importar si es 'estado' o 'Estado'
     col = "estado" if "estado" in df.columns else "Estado"
     
     if col in df.columns:
-        styled = df.style.applymap(style_estado, subset=[col])
+        # Usamos .map en lugar de .applymap
+        styled = df.style.map(style_estado, subset=[col])
         st.dataframe(styled, use_container_width=True, hide_index=True)
     else:
         st.dataframe(df, use_container_width=True, hide_index=True)
